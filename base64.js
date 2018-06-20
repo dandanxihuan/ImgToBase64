@@ -102,7 +102,7 @@
 			if(typeof _this.onload == "function") _this.onload(event);
 		},
 
-		reader.readAsArrayBuffer(file);
+		reader.readAsArrayBuffer(_this.target);
 	}
 
 	/*将网络图片转为base64*/

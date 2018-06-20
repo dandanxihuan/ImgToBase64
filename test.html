@@ -1,0 +1,37 @@
+<!DOCTYPE html>
+	<html>
+	<head>
+		<title></title>
+	</head>
+	<body>
+		<input type="file" name="">
+		<button id="btn1">test file</button>
+		<input type="text" name="">
+		<button id="btn2">test url</button>
+	</body>
+	<script type="text/javascript" src="base64.js"></script>
+	<script type="text/javascript">
+		
+		var btn1 = document.getElementById("btn1"), btn2 = document.getElementById("btn2");
+		btn1.onclick = function(){
+			var input = document.querySelector("input[type='file']"), file = input.files[0];
+			var o = new ImgToBase64(file);
+			o.onload = function(){
+				var img = new Image();
+				img.src = this.result;
+				document.body.append(img);
+			},
+			o.parse();
+		},
+		btn2.onclick = function(){
+			var input = document.querySelector("input[type='text']"), url = input.value;
+			var o = new ImgToBase64(url);
+			o.onload = function(){
+				var img = new Image();
+				img.src = this.result;
+				document.body.append(img);
+			},
+			o.parse();
+		};
+	</script>
+</html>

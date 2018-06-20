@@ -8,7 +8,7 @@ obj.onerror = function(eve){};	// 数据读取错误时的回调<br/>
 obj.onprogress = function(eve){};	// 正在读取数据时的回调<br/>
 obj.onload = function(eve){};		// 数据加载完成时的回调<br/>
 
-### 网络图片：
+### 网络图片（很鸡肋的一个实现方式，跨域是个问题）：
 var obj = new ImgToBase64(url, ext)	// url为图片加载路径， ext为图片格式（默认为png)<br/>
 obj.onerror = function(eve){};	// 图片加载错误时的回调<br/>
 obj.onload = function(eve){};		// 图片加载完成时的回调（已解析为base64）<br/>
