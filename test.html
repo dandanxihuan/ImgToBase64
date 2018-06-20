@@ -8,11 +8,13 @@
 		<button id="btn1">test file</button>
 		<input type="text" name="">
 		<button id="btn2">test url</button>
+		<br><br>
+		<textarea rows="20" cols="80" id="area" placeholder="base64"></textarea>
 	</body>
 	<script type="text/javascript" src="base64.js"></script>
 	<script type="text/javascript">
 		
-		var btn1 = document.getElementById("btn1"), btn2 = document.getElementById("btn2");
+		var btn1 = document.getElementById("btn1"), btn2 = document.getElementById("btn2"), area = document.getElementById("area");
 		btn1.onclick = function(){
 			var input = document.querySelector("input[type='file']"), file = input.files[0];
 			var o = new ImgToBase64(file);
@@ -20,6 +22,7 @@
 				var img = new Image();
 				img.src = this.result;
 				document.body.append(img);
+				area.value = this.result;
 			},
 			o.parse();
 		},
@@ -30,8 +33,10 @@
 				var img = new Image();
 				img.src = this.result;
 				document.body.append(img);
+				area.value = this.result;
 			},
 			o.parse();
 		};
+
 	</script>
 </html>

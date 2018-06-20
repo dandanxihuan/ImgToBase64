@@ -1,14 +1,50 @@
 # ImgToBase64（js图片转base64）
-闲暇时间兴起，自己动手实现了将本地图片文件转为base64的方法，后面又借鉴了网上较为常见的方式转换网络图片为base64。
+闲暇时间兴起，自己动手实现了将本地图片文件转为base64的方法，后面又借鉴了网上较为常见的方式转换网络图片为base64（
+然而并没有卵用，后面Google找到了新的思路：本地node代理），后又改为node代理。比较low的地方是，如果需要转换网络图片，
+需要运行init.bat文件(window系统，且已安装node)
 上传上来以记录自己的成长历程，也欢迎各位大佬指正，觉得实用的同学还请点亮小星星给我的麒麟臂注入能量。
-使用方式非常简单，这里也简单的举个栗子。
-### 本地文件： 
-var obj = new ImgToBase64(file);	// file为图片文件<br/>
-obj.onerror = function(eve){};	// 数据读取错误时的回调<br/>
-obj.onprogress = function(eve){};	// 正在读取数据时的回调<br/>
-obj.onload = function(eve){};		// 数据加载完成时的回调<br/>
+使用方式如test.html中所展示的一样，非常简单。
+```
+	<!DOCTYPE html>
+		<html>
+		<head>
+			<title></title>
+		</head>
+		<body>
+			<input type="file" name="">
+			<button id="btn1">test file</button>
+			<input type="text" name="">
+			<button id="btn2">test url</button>
+			<br><br>
+			<textarea rows="20" cols="80" id="area" placeholder="base64"></textarea>
+		</body>
+		<script type="text/javascript" src="base64.js"></script>
+		<script type="text/javascript">
+			
+			var btn1 = document.getElementById("btn1"), btn2 = document.getElementById("btn2"), area = document.getElementById("area");
+			btn1.onclick = function(){
+				var input = document.querySelector("input[type='file']"), file = input.files[0];
+				var o = new ImgToBase64(file);
+				o.onload = function(){
+					var img = new Image();
+					img.src = this.result;
+					document.body.append(img);
+					area.value = this.result;
+				},
+				o.parse();
+			},
+			btn2.onclick = function(){
+				var input = document.querySelector("input[type='text']"), url = input.value;
+				var o = new ImgToBase64(url);
+				o.onload = function(){
+					var img = new Image();
+					img.src = this.result;
+					document.body.append(img);
+					area.value = this.result;
+				},
+				o.parse();
+			};
 
-### 网络图片（很鸡肋的一个实现方式，跨域是个问题）：
-var obj = new ImgToBase64(url, ext)	// url为图片加载路径， ext为图片格式（默认为png)<br/>
-obj.onerror = function(eve){};	// 图片加载错误时的回调<br/>
-obj.onload = function(eve){};		// 图片加载完成时的回调（已解析为base64）<br/>
+		</script>
+	</html>
+```
