@@ -29,7 +29,7 @@
 	ImgToBase64.prototype.parse = function(){
 		if( isImgFile(this.target) ) parseImgFile(this);
 		else if( isURLStr(this.target) ) imgEntry(this);
-		else throw new Error("target is not an image file or url string")
+		else throw new TypeError("target is not an image file or url string");
 	};
 	
 	// 判断目标是否为图片文件
@@ -74,7 +74,7 @@
 
 	// 将本地图片文件转为base64
 	function parseImgFile(obj){	
-		if( !isImgFile(obj.target) ) throw new Error("target is not an image file");
+		if( !isImgFile(obj.target) ) throw new TypeError("target is not an image file");
 		var reader = new FileReader(), _this = obj;
 		reader.onerror = function(event){
 			_this[status_sym] = -1;
@@ -130,7 +130,7 @@
 			parseBlob(xhr.response, _this);
 		},
 		xhr.onerror = function(eve){
-			throw new Error(eve);
+			throw new Error("an error occured when try to load the image from the url");
 		};
 		xhr.send();
 	}
